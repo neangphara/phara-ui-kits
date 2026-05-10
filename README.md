@@ -22,6 +22,28 @@ composer require phara/ui-kit
 
 The service provider is auto-discovered by Laravel — no manual registration needed.
 
+### Layout Setup
+
+Add `@uiStyles` in the `<head>` and `@uiScripts` before `</body>` in your layout file:
+
+```blade
+<head>
+    {{-- ... --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireStyles
+    @uiStyles
+</head>
+<body>
+    {{ $slot }}
+
+    @livewireScripts
+    @uiScripts
+    @stack('scripts')
+</body>
+```
+
+> `@stack('scripts')` is required — components like Chart, Calendar, and Toast push scripts to this stack.
+
 ### Alpine.js Setup
 
 If Alpine.js is not already installed:
