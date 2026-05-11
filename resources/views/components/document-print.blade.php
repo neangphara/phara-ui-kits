@@ -16,6 +16,8 @@
     <!-- Paged.js Polyfill -->
     <script src="https://unpkg.com/pagedjs/dist/paged.polyfill.js"></script>
 
+    {{ $links ?? '' }}
+
     <style>
         /* ==========================================================================
            Paged Media Setup (Print Rules)
