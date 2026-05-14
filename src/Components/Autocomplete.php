@@ -8,7 +8,8 @@ class Autocomplete extends Component
 {
     public function __construct(
         public array $items = [],
-        public string $placeholder = 'Search...'
+        public string $placeholder = 'Search...',
+        public string $name = ''
     ) {}
 
     public function render()

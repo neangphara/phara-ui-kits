@@ -1,6 +1,7 @@
 @props([
     'items'       => [],
     'placeholder' => 'Search...',
+    'name'        => null,
 ])
 
 <div
@@ -22,8 +23,18 @@
         @keydown.escape="open = false"
         type="text"
         placeholder="{{ $placeholder }}"
-        {{ $attributes->merge(['class' => 'w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:outline-none']) }}
+        {{ $attributes->whereDoesntStartWith('wire:model')->merge(['class' => 'w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:outline-none']) }}
     />
+
+    @if($name || $attributes->whereStartsWith('wire:model')->isNotEmpty())
+        <input
+            type="hidden"
+            x-ref="valueInput"
+            :value="selected"
+            @if($name) name="{{ $name }}" @endif
+            {{ $attributes->whereStartsWith('wire:model') }}
+        />
+    @endif
 
     <div
         x-ref="dropdown"

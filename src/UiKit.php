@@ -175,6 +175,7 @@ window.addEventListener('toast', (e) => Alpine.store('toasts')?.add(e.detail));
 function autocomplete({ items }) {
     return {
         query: '',
+        selected: '',
         open: false,
         activeIndex: 0,
         items,
@@ -205,8 +206,13 @@ function autocomplete({ items }) {
         select(index) {
             if (!this.filtered[index]) return;
             this.query       = this.filtered[index];
+            this.selected    = this.filtered[index];
             this.open        = false;
             this.activeIndex = 0;
+            this.$nextTick(() => {
+                const el = this.$refs.valueInput;
+                if (el) el.dispatchEvent(new Event('input', { bubbles: true }));
+            });
         },
 
         next() {
